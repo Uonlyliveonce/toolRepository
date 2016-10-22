@@ -1,10 +1,4 @@
-//
-//  QTin_Pch.pch
-//  QTin
-//
-//  Created by LDSYLVIA on 16/8/1.
-//  Copyright © 2016年 WYB. All rights reserved.
-//
+
 
 #ifndef QTin_Pch_pch
 #define QTin_Pch_pch
@@ -16,6 +10,30 @@
 //导入系统框架
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+
+
+
+// 标准系统状态栏高度
+#define SYS_STATUSBAR_HEIGHT                        20
+// 热点栏高度
+#define HOTSPOT_STATUSBAR_HEIGHT            20
+// 导航栏（UINavigationController.UINavigationBar）高度
+#define NAVIGATIONBAR_HEIGHT                44
+// 工具栏（UINavigationController.UIToolbar）高度
+#define TOOLBAR_HEIGHT                              44
+// 标签栏（UITabBarController.UITabBar）高度
+#define TABBAR_HEIGHT                              44
+// APP_STATUSBAR_HEIGHT=SYS_STATUSBAR_HEIGHT+[HOTSPOT_STATUSBAR_HEIGHT]
+#define APP_STATUSBAR_HEIGHT                (CGRectGetHeight([UIApplication sharedApplication].statusBarFrame))
+// 根据APP_STATUSBAR_HEIGHT判断是否存在热点栏
+#define IS_HOTSPOT_CONNECTED                (APP_STATUSBAR_HEIGHT==(SYS_STATUSBAR_HEIGHT+HOTSPOT_STATUSBAR_HEIGHT)?YES:NO)
+// 无热点栏时，标准系统状态栏高度+导航栏高度
+#define NORMAL_STATUS_AND_NAV_BAR_HEIGHT    (SYS_STATUSBAR_HEIGHT+NAVIGATIONBAR_HEIGHT)
+// 实时系统状态栏高度+导航栏高度，如有热点栏，其高度包含在APP_STATUSBAR_HEIGHT中。
+#define STATUS_AND_NAV_BAR_HEIGHT                    (APP_STATUSBAR_HEIGHT+NAVIGATIONBAR_HEIGHT)
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 //字符串是否为空
 #define kStringIsEmpty(str) ([str isKindOfClass:[NSNull class]] || str == nil || [str length] < 1 ? YES : NO )
 //数组是否为空
@@ -35,6 +53,7 @@
 #define kScreenSize \
 ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? CGSizeMake([UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale,[UIScreen mainScreen].nativeBounds.size.height/[UIScreen mainScreen].nativeScale) : [UIScreen mainScreen].bounds.size)
 //一些缩写
+#define SYSTEM_VERSION    [[[UIDevice currentDevice] systemVersion] doubleValue]
 #define kApplication        [UIApplication sharedApplication]
 #define kKeyWindow          [UIApplication sharedApplication].keyWindow
 #define kAppDelegate        [UIApplication sharedApplication].delegate
@@ -112,4 +131,4 @@ blue:((float)(rgbValue & 0xFF)) / 255.0 alpha:1.0]
 
 #endif
 
-#endif /* QTin_Pch_pch */
+#endif
